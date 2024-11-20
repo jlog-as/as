@@ -1,1 +1,5 @@
-
+name: as
+on:
+    push:
+      branches:
+        - main
