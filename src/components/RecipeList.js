@@ -7,7 +7,8 @@ const recipesData = [
 ];
 
 const RecipeList = () => {
-  const [recipes, setRecipes] = useState(recipesData);
+  // eslint-disable-next-line no-unused-vars
+  const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState("");
 
   const filteredRecipes = recipes.filter(recipe =>
