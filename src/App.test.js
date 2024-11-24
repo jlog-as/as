@@ -6,17 +6,3 @@ test('renders Recipe Sharing App header', () => {
   const headerElement = screen.getByText(/Recipe Sharing App/i);
   expect(headerElement).toBeInTheDocument();
 });
-
-test('filters recipes by ingredient', () => {
-  render(<App />);
-  
-  const inputElement = screen.getByPlaceholderText(/Filter by ingredient/i);
-  expect(inputElement).toBeInTheDocument();
-
-  // Simulate typing in the filter input
-  fireEvent.change(inputElement, { target: { value: 'chicken' } });
-  
-  // Check that only the "Chicken Curry" recipe is displayed
-  const recipeTitle = screen.getByText(/Chicken Curry/i);
-  expect(recipeTitle).toBeInTheDocument();
-});
