@@ -7,12 +7,13 @@ const recipesData = [
 ];
 
 const RecipeList = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [recipes, setRecipes] = useState([]);
+  const [recipes] = useState(recipesData); // Recipes initialized with recipesData
   const [filter, setFilter] = useState("");
 
-  const filteredRecipes = recipes.filter(recipe =>
-    recipe.ingredients.some(ingredient => ingredient.includes(filter.toLowerCase()))
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.ingredients.some((ingredient) =>
+      ingredient.toLowerCase().includes(filter.toLowerCase())
+    )
   );
 
   return (
@@ -26,13 +27,17 @@ const RecipeList = () => {
         style={{ margin: "10px", padding: "5px" }}
       />
       <ul>
-        {filteredRecipes.map(recipe => (
-          <li key={recipe.id}>
-            <h2>{recipe.title}</h2>
-            <p>Rating: {recipe.rating} ⭐</p>
-            <p>Ingredients: {recipe.ingredients.join(", ")}</p>
-          </li>
-        ))}
+        {filteredRecipes.length > 0 ? (
+          filteredRecipes.map((recipe) => (
+            <li key={recipe.id}>
+              <h2>{recipe.title}</h2>
+              <p>Rating: {recipe.rating} ⭐</p>
+              <p>Ingredients: {recipe.ingredients.join(", ")}</p>
+            </li>
+          ))
+        ) : (
+          <li>No recipes match the filter.</li>
+        )}
       </ul>
     </div>
   );
