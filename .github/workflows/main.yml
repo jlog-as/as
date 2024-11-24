@@ -1,5 +1,40 @@
 name: as
+
+# Trigger the action on push to the main branch or a pull request
 on:
-    push:
-      branches:
-        - main
+  push:
+    branches:
+      - main  # Adjust this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v1
+
+    # Step 2: Set up Node.js (you can change the version if needed)
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16'  # Specify the Node.js version you want to use
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install  # Or use 'yarn install' if you're using Yarn
+
+    # Step 4: Build the React app
+    - name: Build the app
+      run: npm run build  # Or use 'yarn build'
+
+    # Step 5: Deploy to Netlify
+    - name: Deploy to Netlify
+      uses: nwtgck/actions-netlify@v1
+      with:
+        publish-dir: ./build  # React app's build directory
+        production-branch: main  # The branch to deploy from (can be adjusted)
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Netlify Authentication Token
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}  # Netlify Site ID
